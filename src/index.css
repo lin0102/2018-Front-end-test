@@ -1,0 +1,106 @@
+*{margin: 0;padding: 0;font-family: "Microsoft YaHei", "MicrosoftJhengHei", "sans-serif";}
+#bodystyle{
+    background-size: 100% 100%;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.7;
+    display: flex;
+    flex-wrap: nowrap;
+}
+.left{
+    width: 80%;
+    height: 100%;
+}
+.main{
+    width: 80%;
+    height: 80%;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    flex-direction: column;
+}
+.head{
+    display: flex;
+    justify-content: space-around;
+    align-items:center; 
+    width: 100%;
+    height: 10%;
+    width: 100%;
+    border-bottom: 1px solid whitesmoke;
+    padding-bottom: 3%;
+    font-size:1.5rem;
+}
+.ymselect{
+    height: 100%;
+    width: 20rem;
+    display: flex;
+    justify-content: space-between;
+}
+#yearselect{
+    height: 100%;
+    width: 8rem;
+    border-radius: 5px;
+    background-color: gold;
+    font-size:1.5rem;
+    overflow-y: scroll;
+    color: black;
+    border: none;
+}
+#yearselect:hover{
+    opacity: 0.8;
+}
+#monthselect{
+    height: 100%;
+    width: 8rem;
+    border-radius: 5px;
+    background-color: gold;
+    font-size:1.5rem;
+    border: none;
+}
+#monthselect:hover{
+    opacity: 0.8;
+}
+.today{
+    background-color: gold;
+    height: 100%;
+    width: 8rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.today:hover{
+    opacity: 0.8;
+}
+.calender{
+    width: 100%;
+    height: 80%;
+    font-size: 1.5rem;
+    color: black;
+}
+.right{
+    width: 20%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    color:RED;
+    position: absolute;
+    bottom: 0;
+    right: 5%;
+}
+.nowyear{
+    font-size: 4rem;
+}
+.nowmonthday{
+    font-size: 3rem;
+    font-style: italic;
+}
+.todaytext{
+    font-size: 1.5rem;
+    font-weight: 700;
+}
