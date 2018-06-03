@@ -5,15 +5,73 @@ import summer from "./img/夏.jpg";
 import autumn from "./img/秋.jpg";
 import winter from "./img/冬.jpg";
 
-let year = document.getElementById('yearselect');
-let month = document.getElementById('monthselect');
-let cometoday = document.querySelector('.today');
-let tbody = document.querySelector('.calender-month');
-let nowyeartext = document.querySelector('.nowyear');
-let nowmonthdaytext = document.querySelector('.nowmonthday');
-let todaytext = document.querySelectorAll('.todaytext')[1];
-let bodystyle = document.querySelector("#bodystyle");
+let year = document.getElementById('yearselect'); //年份复选框
+let month = document.getElementById('monthselect'); //月份复选框
+let cometoday = document.querySelector('.today');  //查看今天
 
+let tbody = document.querySelector('.calender-month'); //日历表
+let nowyeartext = document.querySelector('.nowyear');  //右侧年份
+let nowmonthdaytext = document.querySelector('.nowmonthday'); //右侧月日
+let todaytext = document.querySelectorAll('.todaytext')[1]; //季节说明文字
+
+let bodystyle = document.querySelector("#bodystyle");  //整体背景
+
+let memo = document.querySelectorAll('.memo'); //添加和查看备忘录
+let plusmemo = document.querySelector('.plusmemo'); //添加备忘录框
+let memothing = document.querySelector('.thing');  //备忘事件
+let memomonth = document.querySelector('#memomonth'); //备忘录框中月份选择
+let memoday = document.querySelector('#memoday'); //备忘录框中日期选择
+let memohour = document.querySelector('#memohour'); //备忘录框中小时选择
+let submit = document.querySelector('#submit'); //备忘录中提交按钮
+let watchmemo = document.querySelector('.watchmemo');
+let memomain = document.querySelector('.memomain'); //备忘录表格
+
+let storage = window.localStorage;  //使用localstorage记录备忘事件，thingorder作为事件顺序标记
+
+let color = ['lightgreen', 'lightcoral', 'gold','lightsteelblue']; //季节颜色
+let text = ['花从春走过,留下缕缕花香', '叶从夏走过,留下片片荫凉', '风从秋走过,留下阵阵金浪', '雪从冬走过,留下种种希望']; //季节说明文字
+let backimg = [spring, summer, autumn, winter]; //季节背景图
+
+for (let i = 1900; i <= 2050; i++) {
+    let yearoption = document.createElement('option');
+    yearoption.value = i;
+    yearoption.innerText = i + '年';
+    year.appendChild(yearoption);
+}  //添加年份
+for(let key in storage){
+    if(key[0] == 'm'){
+        let thingobj = JSON.parse (storage[key]);
+        memomain.insertRow(1);
+        memomain.rows[1].insertCell(0);
+        memomain.rows[1].cells[0].innerText = thingobj.thing;
+        memomain.rows[1].insertCell(1);
+        memomain.rows[1].cells[1].innerText = thingobj.month;
+        memomain.rows[1].insertCell(2);
+        memomain.rows[1].cells[2].innerText = thingobj.day;
+        memomain.rows[1].insertCell(3);
+        memomain.rows[1].cells[3].innerText = thingobj.hour;
+    }
+}  //遍历localstorage对象，填入备忘录
+let comingthing = selectthing ();
+function selectthing () {  
+    let thingobj = storage.getItem("memo1");
+    let time;
+    for(let key in storage){
+        if(key[0] == 'm'){
+            let timekey = new Date(2018,storage[key].month,storage[key].day,storage[key].hour,0,0);
+            time = new Date(2018, thingobj.month, thingobj.day, thingobj.hour,0,0);
+            if(timekey < time){
+                thingobj = storage[key];
+            }
+        }
+    }
+    if(time > new Date()){
+        return time;
+    }
+    else{
+        return;
+    }
+}  //查找出离当前时间最近的备忘录事件
 function changecalender(year, month) {
     let k = 1;
     let now = new Date();
@@ -81,66 +139,42 @@ function initcalender() {
 
 function judgeseason(month) {
     if (month >= 2 && month <= 4) {
-        return 1;
+        return 0;
     } else if (month >= 5 && month <= 7) {
-        return 2;
+        return 1;
     } else if (month >= 8 && month <= 10) {
-        return 3;
+        return 2;
     } else if (month >= 11 || month <= 1) {
-        return 4;
+        return 3;
     }
 } //判断季节
 
 function appearance(season) {
-    switch (season) {
-        case 1:
-            bodystyle.style.backgroundImage = 'url(' + spring + ')';
-            year.style.backgroundColor = 'LIGHTGREEN';
-            month.style.backgroundColor = 'LIGHTGREEN';
-            cometoday.style.backgroundColor = 'LIGHTGREEN';
-            todaytext.innerText = '花从春走过,留下缕缕花香';
-            break;
-        case 2:
-            bodystyle.style.backgroundImage = 'url(' + summer + ')';
-            year.style.backgroundColor = 'LIGHTCORAL';
-            month.style.backgroundColor = 'LIGHTCORAL';
-            cometoday.style.backgroundColor = 'LIGHTCORAL';
-            todaytext.innerText = '叶从夏走过,留下片片荫凉';
-            break;
-        case 3:
-            bodystyle.style.backgroundImage = 'url(' + autumn + ')';
-            year.style.backgroundColor = 'GOLD';
-            month.style.backgroundColor = 'GOLD';
-            cometoday.style.backgroundColor = 'GOLD';
-            todaytext.innerText = '风从秋走过,留下阵阵金浪';
-            break;
-        case 4:
-            bodystyle.style.backgroundImage = 'url(' + winter + ')';
-            year.style.backgroundColor = 'LIGHTSTEELBLUE';
-            month.style.backgroundColor = 'LIGHTSTEELBLUE';
-            cometoday.style.backgroundColor = 'LIGHTSTEELBLUE';
-            todaytext.innerText = '雪从冬走过,留下种种希望';
-            break;
-    }
+    bodystyle.style.backgroundImage = 'url(' + backimg[season] + ')';
+    year.style.backgroundColor = color[season];
+    month.style.backgroundColor = color[season];
+    cometoday.style.backgroundColor = color[season];
+    plusmemo.style.backgroundColor = color[season];
+    plusmemo.style.boxShadow = '0 ' + '0 ' + '5px ' + '5px ' + color[season];
+    watchmemo.style.backgroundColor = color[season];
+    watchmemo.style.boxShadow = '0 ' + '0 ' + '5px ' + '5px ' + color[season];
+    memo[0].style.backgroundColor = color[season];
+    memo[1].style.backgroundColor = color[season];
+    todaytext.innerText = text[season];
 } //改变样式
-for (let i = 1900; i <= 2050; i++) {
-    let yearoption = document.createElement('option');
-    yearoption.value = i;
-    yearoption.innerText = i + '年';
-    year.appendChild(yearoption);
-}
+
 initcalender();
 
-year.addEventListener('change', function () {
+year.addEventListener('change', ()=> {
     changecalender(parseInt(year.value), parseInt(month.value));
 });
-month.addEventListener('change', function () {
+month.addEventListener('change', ()=> {
     changecalender(parseInt(year.value), parseInt(month.value));
     let season = judgeseason(month.value);
     appearance(season);
 });  //监听年月改变
 
-window.addEventListener('keydown', function (e) {
+window.addEventListener('keydown', (e)=> {
     if (e.keyCode == 38) {  //上滑
         if (month.value > 1) {
             month.value--;
@@ -163,6 +197,73 @@ window.addEventListener('keydown', function (e) {
         appearance(season);
     }
 });  //鼠标滑轮切换月份
-cometoday.addEventListener('click', function () {  
+cometoday.addEventListener('click', ()=> {  
     initcalender();
+});
+memo[0].addEventListener('click', ()=> {  
+    if(plusmemo.style.display == 'none'){
+        plusmemo.style.display = 'flex';
+    }
+    else{
+        plusmemo.style.display = 'none';
+    }
+})  //点击添加备忘录出现备忘录添加框，再次点击即关闭
+memo[1].addEventListener('click', ()=>{
+    if(watchmemo.style.display == 'none'){
+        watchmemo.style.display = 'flex';
+    }
+    else{
+        watchmemo.style.display = 'none';
+    }
 })
+memomonth.addEventListener('change', ()=>{
+    memoday.innerHTML = '';
+    let year = new Date().getFullYear();
+    let monthdays = new Date(year, memomonth.value, 0).getDate();
+    for (let i = 1; i <= monthdays; i++) {
+        let dayoption = document.createElement('option');
+        dayoption.value = i;
+        dayoption.innerText = i + '日';
+        memoday.appendChild(dayoption);
+    }  //根据月份选择添加日
+})
+submit.addEventListener('click', ()=>{
+    if(memothing.value.replace(/\s+/,'').length == '0' || memomonth.value == 0 ){
+        alert('请正确输入');
+    }
+    else{
+        let memoobj = {
+            thing: memothing.value,
+            month: parseInt (memomonth.value),
+            day: parseInt (memoday.value),
+            hour: parseInt(memohour.value)
+        }
+        memomain.insertRow(1);
+        memomain.rows[1].insertCell(0);
+        memomain.rows[1].cells[0].innerText = memoobj.thing;
+        memomain.rows[1].insertCell(1);
+        memomain.rows[1].cells[1].innerText = memoobj.month;
+        memomain.rows[1].insertCell(2);
+        memomain.rows[1].cells[2].innerText = memoobj.day;
+        memomain.rows[1].insertCell(3);
+        memomain.rows[1].cells[3].innerText = memoobj.hour;
+        if(!storage.getItem(thingorder)){
+            var thingorder = 1;
+            storage.setItem('thingorder',thingorder);
+        }
+        let order = storage.getItem('thingorder');
+        storage.setItem('memo'+order,JSON.stringify(memoobj));
+        thingorder++;
+        storage.setItem('thingorder',thingorder);
+        alert('添加成功');
+        memothing.value = '';
+        plusmemo.style.display = 'none';
+        comingthing = selectthing ();
+    }
+});
+setInterval(()=>{
+    let nowtime = new Date();
+    if(nowtime == comingthing){
+        alert('不要忘了重要的事情呦');
+    }
+},1000);

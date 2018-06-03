@@ -104,3 +104,74 @@
     font-size: 1.5rem;
     font-weight: 700;
 }
+.memo{
+    width: 40%;
+    height: 10%;;
+    margin-top: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.memo:hover{
+    opacity: 0.8;
+}
+.plusmemo{
+    width: 30%;
+    height: 60%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 999;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.5rem;
+    color: black;
+    display: flex;
+    border-radius: 5px;
+}
+.watchmemo{
+    width: 30%;
+    height: 60%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 999;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+    color: black;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-around;
+}
+.memomain{
+    width: 80%;
+    height: 80%;
+    overflow-y: scroll;
+}
+.thing{
+    width: 15rem;
+    height: 2rem;
+    border: none;
+    font-size: 1.2rem;
+}
+.memotime{
+    width: 4.5rem;
+    height: 2.5rem;
+    font-size: 1.2rem;
+    color: black;
+}
+#submit{
+    width: 6rem;
+    height: 3rem;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 3rem;
+    cursor: pointer;
+}
+#submit:hover{
+    opacity: 0.8;
+}

@@ -105,6 +105,70 @@
             <div class="nowyear"></div>
             <div class="nowmonthday"></div>
             <div class="todaytext" style="margin-top: 10%;font-style: italic;"></div>
+            <div class="memo">添加备忘录</div>
+            <div class="memo">查看备忘录</div>
+        </div>
+        <div class="plusmemo" style="display: none;">
+            <div>事件：<input type="text" class="thing"></div>
+            <div>
+                时间：
+                <select name="month" id="memomonth" class="memotime">
+                    <option value="0">月份</option>
+                    <option value="1">1月</option>
+                    <option value="2">2月</option>
+                    <option value="3">3月</option>
+                    <option value="4">4月</option>
+                    <option value="5">5月</option>
+                    <option value="6">6月</option>
+                    <option value="7">7月</option>
+                    <option value="8">8月</option>
+                    <option value="9">9月</option>
+                    <option value="10">10月</option>
+                    <option value="11">11月</option>
+                    <option value="12">12月</option>
+                </select>
+                <select name="days" id="memoday" class="memotime"></select>
+                <select name="hours" id="memohour" class="memotime">
+                    <option value="0">0时</option>
+                    <option value="1">1时</option>
+                    <option value="2">2时</option>
+                    <option value="3">3时</option>
+                    <option value="4">4时</option>
+                    <option value="5">5时</option>
+                    <option value="6">6时</option>
+                    <option value="7">7时</option>
+                    <option value="8">8时</option>
+                    <option value="9">9时</option>
+                    <option value="10">10时</option>
+                    <option value="11">11时</option>
+                    <option value="12">12时</option>
+                    <option value="13">13时</option>
+                    <option value="14">14时</option>
+                    <option value="15">15时</option>
+                    <option value="16">16时</option>
+                    <option value="17">17时</option>
+                    <option value="18">18时</option>
+                    <option value="19">19时</option>
+                    <option value="20">20时</option>
+                    <option value="21">21时</option>
+                    <option value="22">22时</option>
+                    <option value="23">23时</option>
+                </select>
+            </div>
+            <div id="submit">添加</div>
+            <p style="font-size: 1rem;font-style: italic;">(如不想继续添加事件，再次点击添加备忘录关闭此窗口)</p>
+        </div>
+        <div class="watchmemo" style="display: none;">
+            <table cellspacing = "40">
+                <tbody class="memomain">
+                    <tr>
+                        <th>事件</th>
+                        <th>月</th>
+                        <th>日</th>
+                        <th>时</th>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </body>
