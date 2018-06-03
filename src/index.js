@@ -3,6 +3,7 @@ import spring from "./img/春.jpg";
 import summer from "./img/夏.jpg";
 import autumn from "./img/秋.jpg";
 import winter from "./img/冬.jpg";
+
 let year = document.getElementById('yearselect');
 let month = document.getElementById('monthselect');
 let cometoday = document.querySelector('.today');
@@ -113,4 +114,26 @@ month.addEventListener('change', function () {
     let season = judgeseason(month.value);
     appearance(season);
 });
+window.addEventListener('keydown', function (e) { 
+    if(e.keyCode == 38){
+        if(month.value > 1){
+            month.value--;
+        }
+        else{
+            year.value--;
+            month.value = 12;
+        }
+        changecalender(year.value,month.value);
+    }
+    else(e.keyCode == 40){
+        if(month.value < 12){
+            month.value++;
+        }
+        else{
+            year.value++;
+            month.value = 1;
+        }
+        changecalender(year.value,month.value);
+    }
+})
 
