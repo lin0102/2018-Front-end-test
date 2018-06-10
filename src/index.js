@@ -243,14 +243,14 @@ submit.addEventListener('click', () => {
         memomain.rows[1].cells[2].innerText = memoobj.day;
         memomain.rows[1].insertCell(3);
         memomain.rows[1].cells[3].innerText = memoobj.hour;
-        if (!storage.getItem(thingorder)) {
+        if (!storage.getItem('thingorder')) {
             var thingorder = 1;
             storage.setItem('thingorder', thingorder);
         }
         let order = storage.getItem('thingorder');
         storage.setItem('memo' + order, JSON.stringify(memoobj));
-        thingorder++;
-        storage.setItem('thingorder', thingorder);
+        order++;
+        storage.setItem('thingorder', order);
         alert('添加成功');
         memothing.value = '';
         plusmemo.style.display = 'none';
